@@ -1,0 +1,38 @@
+# Secrets & local configuration
+config.json
+secrets.py
+
+# Python & MicroPython bytecode and cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.mpy
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE and OS metadata
+.vscode/
+.idea/
+*.swp
+*~
+.DS_Store
+Thumbs.db
+
+# Generated bloom filter blocklist (rebuild with tools/build_bloom.py)
+blocklist.bloom
+
+# MicroPython firmware / build artifacts
+build/
+dist/
+*.uf2
+*.bin
+*.hex

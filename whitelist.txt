@@ -1,0 +1,24 @@
+# Whitelist of critical connectivity checks and false-positive prevention
+# Whitelisted domains always bypass the sinkhole and are resolved via upstream DNS.
+
+# Android / Google Connectivity Check
+connectivitycheck.gstatic.com
+clients3.google.com
+connectivitycheck.android.com
+
+# Microsoft Network Connectivity Status Indicator (NCSI)
+www.msftconnecttest.com
+msftconnecttest.com
+www.msftncsi.com
+ipv6.msftconnecttest.com
+
+# Apple Captive Portal Detection
+captive.apple.com
+gateway.icloud.com
+
+# NTP & Time Synchronization
+pool.ntp.org
+time.windows.com
+time.apple.com
+time.google.com
+time.cloudflare.com

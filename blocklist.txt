@@ -1,0 +1,52 @@
+# Manual blocklist overrides for pico-sinkhole
+# Format: one domain per line. Subdomains are automatically blocked.
+#
+# Bulk blocking comes from blocklist.bloom (build with `.\dev.ps1 update-lists`,
+# sourced from hagezi lists). This file is for exact, deterministic additions:
+# domains you want blocked regardless of the bloom filter, plus entries the
+# conservative hagezi Light list intentionally leaves out.
+# It is also the fallback blocklist when no blocklist.bloom is deployed.
+
+# Google Ads (apex domains; not in hagezi Light)
+# NOTE: doubleclick.net / googlesyndication.com are known to occasionally hang
+# the YouTube app on TV devices - whitelist them if YouTube misbehaves.
+ads.google.com
+doubleclick.net
+googleadservices.com
+googlesyndication.com
+adservice.google.com
+
+# Microsoft Telemetry & Advertising
+telemetry.microsoft.com
+v10.events.data.microsoft.com
+v20.events.data.microsoft.com
+activity.windows.com
+watson.telemetry.microsoft.com
+rad.msn.com
+
+# Amazon Ads
+s.amazon-adsystem.com
+c.amazon-adsystem.com
+fls-na.amazon.com
+
+# Tracking & Analytics Platforms (apex domains; aggressive - blocks vendor sites too)
+hotjar.com
+segment.io
+mixpanel.com
+amplitude.com
+scorecardresearch.com
+criteo.com
+outbrain.com
+rubiconproject.com
+pubmatic.com
+smartadserver.com
+
+# Apple Telemetry
+diagnostics.apple.com
+
+# Smart TV & Device Telemetry
+samsungadhub.com
+samsungcloudsolution.net
+lgsmartad.com
+iba.lgtvcommon.com
+telemetry.roku.com

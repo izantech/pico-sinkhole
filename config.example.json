@@ -1,0 +1,29 @@
+{
+  "wifi": {
+    "ssid": "YOUR_WIFI_SSID",
+    "password": "YOUR_WIFI_PASSWORD",
+    "connect_timeout_s": 20
+  },
+  "dns": {
+    "port": 53,
+    "upstream_primary": "1.1.1.1",
+    "upstream_secondary": "8.8.8.8",
+    "upstream_port": 53,
+    "sinkhole_ipv4": "0.0.0.0",
+    "sinkhole_ipv6": "::",
+    "blocking_mode": "null_ip",
+    "ttl": 60,
+    "query_timeout_s": 4
+  },
+  "web": {
+    "enabled": true,
+    "port": 80
+  },
+  "led": {
+    "enabled": true,
+    "pin": "LED"
+  },
+  "logging": {
+    "level": "INFO"
+  }
+}
