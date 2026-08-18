@@ -1,0 +1,6 @@
+* text=auto
+dev text eol=lf
+*.py text eol=lf
+*.sh text eol=lf
+dev.cmd text eol=crlf
+dev.ps1 text eol=crlf

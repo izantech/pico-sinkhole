@@ -25,7 +25,10 @@ Turn your $6 micro-controller into a silent, ultra-low-power, network-wide ad sh
 
 ```
 pico-sinkhole/
-├── dev.ps1                # PowerShell development & deployment automation
+├── dev.py                 # Cross-platform development & deployment tool
+├── dev                    # Linux/macOS shim for dev.py
+├── dev.ps1                # Windows PowerShell shim for dev.py
+├── dev.cmd                # Windows cmd shim for dev.py
 ├── config.example.json   # Configuration template
 ├── blocklist.txt          # Default curated ad & tracker blocklist
 ├── whitelist.txt          # Essential domains whitelist (connectivity checks)
@@ -103,11 +106,14 @@ Edit `config.json`:
 ### 3. Deploy to Pico W / Pico 2 W
 You can deploy automatically using the development script:
 
-```pwsh
-# 1. Ensure Thonny is closed so COM port is free
+```bash
+# 1. Ensure Thonny is closed so the serial port is free
 # 2. Deploy files, soft-reset Pico, and start streaming logs:
-.\dev.ps1 deploy
+./dev deploy        # Linux / macOS
+.\dev.ps1 deploy    # Windows (or just `dev deploy` from cmd)
 ```
+
+Run `./dev help` to see all commands (deploy, monitor, ls, reset, test, run-local, update-lists).
 
 Alternatively, you can manually upload using **Thonny IDE**:
 1. Connect your Pico to your computer via USB.
@@ -121,16 +127,16 @@ Alternatively, you can manually upload using **Thonny IDE**:
 
 The in-memory sets in `blocklist.txt` are limited to a few thousand domains by the Pico's RAM. To use large curated lists like [hagezi/dns-blocklists](https://github.com/hagezi/dns-blocklists) (~43k domains for the Light list), build a compact bloom filter on your PC:
 
-```pwsh
+```bash
 # Build blocklist.bloom from hagezi Multi Light (~75 KB for ~43k domains)
-.\dev.ps1 update-lists
+./dev update-lists
 
 # Or pick your own mix (any 'hagezi:<name>' shorthand, URL, or local file):
-python tools\build_bloom.py --source hagezi:native.apple --source hagezi:native.samsung
-python tools\build_bloom.py --source hagezi:pro.mini --fp-rate 0.001
+./dev update-lists --source hagezi:native.apple --source hagezi:native.samsung
+./dev update-lists --source hagezi:pro.mini --fp-rate 0.001
 ```
 
-`.\dev.ps1 deploy` automatically copies `blocklist.bloom` to the device if present, and it is loaded at boot alongside the text lists. Bloom filters have **no false negatives** (every listed domain is always blocked) and a small tunable false-positive chance (default 0.1%). If a legitimate domain is ever wrongly blocked, add it to `whitelist.txt` — the whitelist always wins.
+`./dev deploy` automatically copies `blocklist.bloom` to the device if present, and it is loaded at boot alongside the text lists. Bloom filters have **no false negatives** (every listed domain is always blocked) and a small tunable false-positive chance (default 0.1%). If a legitimate domain is ever wrongly blocked, add it to `whitelist.txt` — the whitelist always wins.
 
 ---
 
@@ -149,11 +155,11 @@ With the web server disabled, the dashboard module is never even imported (its c
 
 For extra headroom, deploy precompiled bytecode instead of source:
 
-```pwsh
-.\dev.ps1 deploy -Mpy
+```bash
+./dev deploy --mpy
 ```
 
-This compiles `src/` with `mpy-cross` on the PC, removing the on-device compile spike at boot. The installed `mpy-cross` version must match the firmware's MicroPython version — if the device reports `incompatible .mpy file` at boot, run a plain `.\dev.ps1 deploy` (it cleans up the `.mpy` files automatically).
+This compiles `src/` with `mpy-cross` on the PC, removing the on-device compile spike at boot. The installed `mpy-cross` version must match the firmware's MicroPython version — if the device reports `incompatible .mpy file` at boot, run a plain `./dev deploy` (it cleans up the `.mpy` files automatically).
 
 ---
 
